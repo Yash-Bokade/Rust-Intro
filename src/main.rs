@@ -1,15 +1,29 @@
 use std::io;
 use std::io::Write;
+use rand::random_range;
 
 fn main() {
-    // 1. Create a mutable string buffer
-    let mut input = input("What is your name:");
-    println!("Hello, {input}!",);
+    //  Control Flow
+    let mut random_no: i32= random_range(1..100);
 
-    let mut i=inputInt("Age: ");
-    println!("Wow, {i}!",);
+    let mut check_data : i32;
 
+    'input_for_guess: loop{
 
+        check_data = inputInt("Enter guess: ")  as i32;
+
+        if(check_data==random_no) {
+            println!("You got it!!!");
+            break;
+        }
+        else if check_data>random_no {
+            println!("Guess is Lower");
+        }
+        else{
+            println!("Guess is Higher");
+        }
+
+    }
 }
 fn input(msg: &str) -> String
 {
@@ -34,7 +48,3 @@ fn inputInt(msg: &str) -> i64
     i.trim().parse().expect("Please type a valid number!")
 
 }
-
-
-
-// Learnt Functions and IO in rust
