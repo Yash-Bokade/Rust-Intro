@@ -3,31 +3,21 @@ use std::io::Write;
 use rand::random_range;
 
 fn main() {
-    //  Ownership in Rust
-    let name:String=String::from("Apple");
-    /*
-    let new_name = name;
-    println!("{}",name); // Error borrowed  Element
-    */
-    let new_name=name.clone();
-    println!("{}",name);
-    println!("{}",new_name);
-
-    let msg = "The Msg: ";
-    let mut a = input(msg);
-    println!("{}",a);
-    println!("{}",msg);
-    // Ownership remains because &str implements the Copy trait
-
-
-    let mm:String =String::from("ABCDEF");
-    println!("{}",mm);
-    get_ownership(mm);
-    // println!("{}",mm);// Returns an err (Ownership is no longer valid)
+    //  References and Borrowing in Rust
+    let name ="Hello, world!";
+    println!("Hello, {}!", name);
+    borrow_(name);
+    println!("Hello, {}!", name); // no error because the referencing has not dropped the var from the memory
 }
 
-fn get_ownership(var:String){
-    println!("ownership Ended here val[{}]",var);
+// fn dangle()->&String{
+//     let str = String::from("hello");         This is not possible in rust because Rust compiler guarantees
+//     &str                                     that the data will not go out of scope before the reference to that data
+// }
+
+
+fn borrow_(var:&str){
+    println!("borrowing a var -> val[{}]",var);
 }
 fn input(msg: &str) -> String
 {
