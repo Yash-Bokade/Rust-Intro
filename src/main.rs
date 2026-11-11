@@ -3,27 +3,31 @@ use std::io::Write;
 use rand::random_range;
 
 fn main() {
-    //  Control Flow
-    let mut random_no: i32= random_range(1..100);
+    //  Ownership in Rust
+    let name:String=String::from("Apple");
+    /*
+    let new_name = name;
+    println!("{}",name); // Error borrowed  Element
+    */
+    let new_name=name.clone();
+    println!("{}",name);
+    println!("{}",new_name);
 
-    let mut check_data : i32;
+    let msg = "The Msg: ";
+    let mut a = input(msg);
+    println!("{}",a);
+    println!("{}",msg);
+    // Ownership remains because &str implements the Copy trait
 
-    'input_for_guess: loop{
 
-        check_data = inputInt("Enter guess: ")  as i32;
+    let mm:String =String::from("ABCDEF");
+    println!("{}",mm);
+    get_ownership(mm);
+    // println!("{}",mm);// Returns an err (Ownership is no longer valid)
+}
 
-        if(check_data==random_no) {
-            println!("You got it!!!");
-            break;
-        }
-        else if check_data>random_no {
-            println!("Guess is Lower");
-        }
-        else{
-            println!("Guess is Higher");
-        }
-
-    }
+fn get_ownership(var:String){
+    println!("ownership Ended here val[{}]",var);
 }
 fn input(msg: &str) -> String
 {
