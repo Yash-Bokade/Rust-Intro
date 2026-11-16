@@ -2,60 +2,102 @@ use std::io;
 use std::io::Write;
 
 // Methods for Structs In Rust
+
 #[derive(Debug)]
-struct Rect {
-    width:u32,
-    height:u32
-}
-impl Rect{
-    // fn new(width:u32,height:u32) -> Rect{
-    //     Rect{
-    //         width,               the Constructor like thing but not a real constructor
-    //         height
-    //     }
-    // }
-    fn new(width:u32,height:u32)->Self{
-        Self{
-            width,                  // Can call this a Constructor
-            height
-        }
-    }
-    fn can_hold(&self,rect:&Rect) -> bool{
-        if(rect.width <= self.width && rect.height <= self.height)
-        {
-            return true;
-        }
-        false
-    }
-    // fn new(rect:&Rect)->Rect{
-    //     Rect{
-    //         width:rect.width,        I think I cant overload in rust [there might be a way i think will see it ahead probably]
-    //         height:rect.height
-    //     }
-    // }
+enum Shape{
+    SQUARE (f32),
+    RECTANGLE(f32,f32),
+    TRIANGLE(f32,f32,f32),
+    CIRCLE{r:f32}
 }
 
-// we can create multiple impl blocks
-impl Rect{
-    fn display(&self){
-        println!("Width: {}, Height: {}",self.width,self.height);
+#[derive(Debug)]
+struct Polygon {
+    name: String,
+    shape_type: Shape,
+    area: f64,
+    perimeter: f64,
+}
+impl Polygon {
+    fn new(name: String, shape_type: Shape, area: f64, perimeter: f64) -> Self {
+        Self {
+            name,
+            shape_type,
+            area,
+            perimeter,
+        }
     }
 }
 
 fn main() {
-    let r1 = Rect::new(10,10);
-    let r2 = Rect::new(20,10);
-    let r3 = Rect::new(15,5);
-    println!("{:#?}",r1.can_hold(&r2));
-    println!("{:#?}",r2.can_hold(&r3));
-    println!("{:#?}",r2.can_hold(&r1));
 
+    let p1 = Polygon::new(
+        String::from("Square"),
+        Shape::SQUARE(3.2),
+        10.0,
+        10.0,
+    );
+    let p2= Polygon::new(
+        String::from("Rectangle"),
+        Shape::RECTANGLE(3.2,4.5),
+        10.0,
+        10.0,
+    );
+    let p3= Polygon::new(
+        String::from("Triangle"),
+        Shape::TRIANGLE(3.,4.0,5.0),
+        10.0,
+        10.0,
+    );
+    let p4= Polygon::new(
+        String::from("Circle"),
+        Shape::CIRCLE {r:10.},
+        10.0,
+        10.0,
+    );
 
-    r1.display();
-    r2.display();
-    r3.display();
+    println!("{:#?}", p1);
+    println!("{:#?}", p2);
+    println!("{:#?}", p3);
+    println!("{:#?}", p4);
+    // Polygon {
+    //     name: "Square",
+    //     shape_type: SQUARE(
+    //         3.2,
+    //     ),
+    //     area: 10.0,
+    //     perimeter: 10.0,
+    // }
+    // Polygon {
+    //     name: "Rectangle",
+    //     shape_type: RECTANGLE(
+    //         3.2,
+    //         4.5,
+    //     ),
+    //     area: 10.0,
+    //     perimeter: 10.0,
+    // }
+    // Polygon {
+    //     name: "Triangle",
+    //     shape_type: TRIANGLE(
+    //         3.0,
+    //         4.0,
+    //         5.0,
+    //     ),
+    //     area: 10.0,
+    //     perimeter: 10.0,
+    // }
+    // Polygon {
+    //     name: "Circle",
+    //     shape_type: CIRCLE {
+    //         r: 10.0,
+    //     },
+    //     area: 10.0,
+    //     perimeter: 10.0,
+    // }
 
 }
+
 fn input(msg: &str) -> String
 {
     print!("{msg}");
