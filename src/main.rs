@@ -10,16 +10,23 @@ enum Shape{
     TRIANGLE(f32,f32,f32),
     CIRCLE{r:f32}
 }
+#[derive(Debug)]
+enum ShapeV2<T>{
+    SQUARE (T),
+    RECTANGLE(T,T),
+    TRIANGLE(T,T,T),
+    CIRCLE{r:T}
+}
 
 #[derive(Debug)]
 struct Polygon {
     name: String,
-    shape_type: Shape,
+    shape_type: Option<ShapeV2<f32>>,
     area: f64,
     perimeter: f64,
 }
 impl Polygon {
-    fn new(name: String, shape_type: Shape, area: f64, perimeter: f64) -> Self {
+    fn new(name: String, shape_type: Option<ShapeV2<f32>>, area: f64, perimeter: f64) -> Self { // I was thinking of using generis from Object, but it would be complex i will do tht when they teach generics
         Self {
             name,
             shape_type,
@@ -30,72 +37,27 @@ impl Polygon {
 }
 
 fn main() {
+    let P1 = Polygon::new(String::from("P1"), None, 0.0, 0.0);
+    let p2 = Polygon::new(String::from("P2"), Some(ShapeV2::SQUARE(5.0)), 25.0, 20.0);
 
-    let p1 = Polygon::new(
-        String::from("Square"),
-        Shape::SQUARE(3.2),
-        10.0,
-        10.0,
-    );
-    let p2= Polygon::new(
-        String::from("Rectangle"),
-        Shape::RECTANGLE(3.2,4.5),
-        10.0,
-        10.0,
-    );
-    let p3= Polygon::new(
-        String::from("Triangle"),
-        Shape::TRIANGLE(3.,4.0,5.0),
-        10.0,
-        10.0,
-    );
-    let p4= Polygon::new(
-        String::from("Circle"),
-        Shape::CIRCLE {r:10.},
-        10.0,
-        10.0,
-    );
-
-    println!("{:#?}", p1);
+    println!("{:#?}", P1);
     println!("{:#?}", p2);
-    println!("{:#?}", p3);
-    println!("{:#?}", p4);
+    //  Polygon {
+    //     name: "P1",
+    //     shape_type: None,
+    //     area: 0.0,
+    //     perimeter: 0.0,
+    // }
     // Polygon {
-    //     name: "Square",
-    //     shape_type: SQUARE(
-    //         3.2,
+    //     name: "P2",
+    //     shape_type: Some(
+    //         SQUARE(
+    //             5.0,
+    //         ),
     //     ),
-    //     area: 10.0,
-    //     perimeter: 10.0,
+    //     area: 25.0,
+    //     perimeter: 20.0,
     // }
-    // Polygon {
-    //     name: "Rectangle",
-    //     shape_type: RECTANGLE(
-    //         3.2,
-    //         4.5,
-    //     ),
-    //     area: 10.0,
-    //     perimeter: 10.0,
-    // }
-    // Polygon {
-    //     name: "Triangle",
-    //     shape_type: TRIANGLE(
-    //         3.0,
-    //         4.0,
-    //         5.0,
-    //     ),
-    //     area: 10.0,
-    //     perimeter: 10.0,
-    // }
-    // Polygon {
-    //     name: "Circle",
-    //     shape_type: CIRCLE {
-    //         r: 10.0,
-    //     },
-    //     area: 10.0,
-    //     perimeter: 10.0,
-    // }
-
 }
 
 fn input(msg: &str) -> String
