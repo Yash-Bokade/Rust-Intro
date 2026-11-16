@@ -1,7 +1,7 @@
 use std::io;
 use std::io::Write;
 
-// Methods for Structs In Rust
+// Match Control Flow in Rust
 
 #[derive(Debug)]
 enum Shape{
@@ -35,29 +35,29 @@ impl Polygon {
         }
     }
 }
+impl Polygon {
+    fn calculate_area(&mut self)->f32{
+        match self.shape_type {
+            None=>{println!("No shape type setting to 0");
+                self.area=0.0;
+            },
+            Some(ShapeV2::SQUARE(s))=> { self.area = (s * s) as f64; },
+            Some(ShapeV2::RECTANGLE(l,w))=> { self.area= (l * w) as f64 },
+            Some(ShapeV2::TRIANGLE(a,b,c))=>{self.area = ((a + b + c) / 2.0) as f64 },
+            Some(ShapeV2::CIRCLE{r})=>{self.area= (3.14 * r * r) as f64 }
+        }
+        self.area as f32
+    }
+}
 
 fn main() {
-    let P1 = Polygon::new(String::from("P1"), None, 0.0, 0.0);
-    let p2 = Polygon::new(String::from("P2"), Some(ShapeV2::SQUARE(5.0)), 25.0, 20.0);
+    let mut P1 = Polygon::new(String::from("P1"), None, 0.0, 0.0);
+    let mut P2 = Polygon::new(String::from("P2"), Some(ShapeV2::SQUARE(5.0)), 25.0, 20.0);
 
-    println!("{:#?}", P1);
-    println!("{:#?}", p2);
-    //  Polygon {
-    //     name: "P1",
-    //     shape_type: None,
-    //     area: 0.0,
-    //     perimeter: 0.0,
-    // }
-    // Polygon {
-    //     name: "P2",
-    //     shape_type: Some(
-    //         SQUARE(
-    //             5.0,
-    //         ),
-    //     ),
-    //     area: 25.0,
-    //     perimeter: 20.0,
-    // }
+    println!("{}",P1.calculate_area());
+    println!("{}",P2.calculate_area());
+
+    //Sorry guys i am leaving if let ... else because I think its easy and no need to do it here.
 }
 
 fn input(msg: &str) -> String
