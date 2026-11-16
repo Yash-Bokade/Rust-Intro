@@ -1,41 +1,61 @@
 use std::io;
 use std::io::Write;
-use rand::random_range;
 
-fn main() {
-    //  Slices types in Rust
-    /*
-    Slices let you reference a contiguous sequence of elements in a collection.
-    A slice is a kind of reference, so it does not have ownership.
-     */
-
-
-    // slice is a reference and not Ownership so hopefully not that hard
-    let msg= String::from("apple is red!");
-    // println!("{}", first_word(&msg));
-
-    let charsOfMsg = msg.as_bytes();
-    for (i,&char) in charsOfMsg.iter().enumerate() {
-        if(char==b' '){
-            println!("{}",i); // prints the index of spaces
+// Methods for Structs In Rust
+#[derive(Debug)]
+struct Rect {
+    width:u32,
+    height:u32
+}
+impl Rect{
+    // fn new(width:u32,height:u32) -> Rect{
+    //     Rect{
+    //         width,               the Constructor like thing but not a real constructor
+    //         height
+    //     }
+    // }
+    fn new(width:u32,height:u32)->Self{
+        Self{
+            width,                  // Can call this a Constructor
+            height
         }
     }
-
-
-    let slices= &msg[3..];
-    println!("{}",slices);
+    fn can_hold(&self,rect:&Rect) -> bool{
+        if(rect.width <= self.width && rect.height <= self.height)
+        {
+            return true;
+        }
+        false
+    }
+    // fn new(rect:&Rect)->Rect{
+    //     Rect{
+    //         width:rect.width,        I think I cant overload in rust [there might be a way i think will see it ahead probably]
+    //         height:rect.height
+    //     }
+    // }
 }
-// fn first_word(s: &String) -> usize { //  this is the same function that was defined in the rust book that returns the index of the first word;
-//     let bytes = s.as_bytes();
-//
-//     for (i, &item) in bytes.iter().enumerate() {
-//         if item == b' ' {
-//             return i;
-//         }
-//     }
-//
-//     s.len()
-// }
+
+// we can create multiple impl blocks
+impl Rect{
+    fn display(&self){
+        println!("Width: {}, Height: {}",self.width,self.height);
+    }
+}
+
+fn main() {
+    let r1 = Rect::new(10,10);
+    let r2 = Rect::new(20,10);
+    let r3 = Rect::new(15,5);
+    println!("{:#?}",r1.can_hold(&r2));
+    println!("{:#?}",r2.can_hold(&r3));
+    println!("{:#?}",r2.can_hold(&r1));
+
+
+    r1.display();
+    r2.display();
+    r3.display();
+
+}
 fn input(msg: &str) -> String
 {
     print!("{msg}");
